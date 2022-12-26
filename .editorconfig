@@ -1,0 +1,16 @@
+﻿[*]
+charset = utf-8-bom
+
+[*.{csproj,props,targets}]
+indent_style = space
+indent_size = 2
+
+[*.cs]
+indent_style = space
+
+# CA1012: Abstract types should not have constructors
+dotnet_diagnostic.CA1012.severity = none
+# CS1591: 缺少对公共可见类型或成员的 XML 注释
+dotnet_diagnostic.CS1591.severity = none
+# CS1573: 参数在 XML 注释中没有匹配的 param 标记(但其他参数有)
+dotnet_diagnostic.CS1573.severity = none

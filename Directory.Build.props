@@ -1,0 +1,15 @@
+﻿<Project>
+  <PropertyGroup>
+    <LangVersion>10</LangVersion>
+    <Nullable>enable</Nullable>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup>
+    <Authors>Jawa</Authors>
+    <Copyright>© Jawa 2022</Copyright>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+  </PropertyGroup>
+  <PropertyGroup>
+    <_VerIoc>0.3.0</_VerIoc>
+  </PropertyGroup>
+</Project>
