@@ -1,7 +1,7 @@
 ﻿**Hndy.Ioc** is a lightweight IoC container based on C# source generators. *Hndy* is a variant of the word *Handy*. Let's just pronounce it as *Handy*. Hndy.Ioc has the following features:
 
 - **No runtime reflection**. Instead Hndy.Ioc use the C# source generators to improve performance, and facilitate assembly trimming and obfuscation.
-- **Auto-wiring with wieres**. Powerful partial auto-wiring are supported with Hndy.Ioc Wirers.
+- **Auto-wiring with wirers**. Powerful partial auto-wiring are supported with Hndy.Ioc Wirers.
 
 # Table of Contents <!-- omit in toc -->
 
@@ -126,7 +126,7 @@ TransientFor<IBar>().Use<NamedBar, string>();
 
 ## What are Wirers?
 
-Wirers are generated automatically by C# source generators while you writing your registeration code. Actually while you writes `.Use<Foobar>(...`, Hndy.Ioc generates an inner wirer class `Wirers.Foobar` for concrete class `Foobar`.
+Wirers are generated automatically by C# source generators while you writing your registeration code. Actually while you writes `.Use<Foobar>(...`, Hndy.Ioc generates an inner wirer class `Wirers.Foobar` for concrete class *Foobar*.
 
 Wirer implements `IIocWirer` interface. It wraps parameters of concrete class constructor into properties. Constructor parameters could be specified via those properites with the same name. You don't have to specify all properties, specify those you are going to. Just leave others to IoC container, and they will be built automatically if they are registed.
 
@@ -230,7 +230,7 @@ TransientFor<IService>().Use<Service>(new Wirers.Service() { para = new() });
 
 ## IDisposable
 
-If a singleton service implements *IDisposable* interface, it will be disposed when you call `IocContainer.Dispose()`. If a scoped service implements *IDisposable* interface, it will be disposed when you call `IocScope.Dispose()`. Hndy.Ioc never track transient services.
+If a singleton service implements `IDisposable` interface, it will be disposed when you call `IocContainer.Dispose()`. If a scoped service implements `IDisposable` interface, it will be disposed when you call `IocScope.Dispose()`. Hndy.Ioc never track transient services.
 
 # Named Instances & Parameterized Instances
 
@@ -245,7 +245,7 @@ Singleton<IService, string>("red", new RedService());
 Singleton<IService, string>(s => new Service(s));
 ```
 
-Named instances use name as the key of registerations. So the name has a type restriction. It must implements *IEquatable<T>* interface. Hndy.Ioc use this interface to check the equality of the names.
+Named instances use name as the key of registerations. So the name has a type restriction. It must implements `IEquatable<T>` interface. Hndy.Ioc use this interface to check the equality of the names.
 
 Parameterized instances are similar but without type restriction. However it has a lifecycle restriction. Parameterized instances are only supported in *Transient* lifecycle.
 
@@ -260,10 +260,9 @@ Transient<IService, ServiceOptions>(options => new Service(options));
 
 In Hndy.Ioc, you have to explictly register every service before getting it, except:
 
-- *IServiceLocator*，it returns the container itself.
-- *IIocContainer*, it returns the container itself.
-- *IIocScope*, it returns a *Transient* scope instance created by *IocContainer.NewScope()* method.
-  
+- `IServiceLocator`，it returns the container itself.
+- `IIocContainer`, it returns the container itself.
+- `IIocScope`, it returns a *Transient* scope instance created by `IocContainer.NewScope()` method.
 
 Actually, when you register a service in Hndy.Ioc, you can get it back later, and also a delegate for lazy creation:
 
@@ -280,7 +279,7 @@ Func<string, INamedService> namedServiceCreator = container.Get<Func<string, INa
 
 ## Registration Overrides
 
-When multiple instances are registered in one or multiple *IocRegistration* class to create *IocContainer*, the last one win.
+When multiple instances are registered in one or multiple registration class to create `IocContainer`, the last one win.
 
 ```c#
 // public MyRegistrations1()
@@ -299,7 +298,7 @@ var service = container.Get<IService>(); // service is type of Service3.
 
 ## Child Container
 
-A parent container can be specified when creating *IocContainer*. Services can be gotten from parent container if the child container missing the registration.
+A parent container can be specified when creating `IocContainer`. Services can be gotten from parent container if the child container missing the registration.
 
 ```c#
 IocContainer parent;
@@ -322,7 +321,7 @@ Singleton<IService>(new Service());
 
 ## Circular Dependency
 
-Circular dependencies will be detected when getting services in Hndy.Ioc, and then an *IocCircularDependenciesException* throws.
+Circular dependencies will be detected when getting services in Hndy.Ioc, and then an `IocCircularDependenciesException` throws.
 
 ## Late Injection
 
